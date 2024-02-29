@@ -1,7 +1,7 @@
 import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
 const Footer: React.FC = () => {
-  const defaultMessage = '蚂蚁集团体验技术部出品';
+  const defaultMessage = 'thr出品';
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter
@@ -15,14 +15,15 @@ const Footer: React.FC = () => {
         },
         {
           key: 'github',
-          title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          // 需要一个父标签
+          title: <><GithubOutlined /> thr Github</>,
+          href: 'https://github.com/Tangsmallrong',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'thr blog',
+          title: '个人博客',
+          href: 'https://www.cnblogs.com/thr-0103',
           blankTarget: true,
         },
       ]}
