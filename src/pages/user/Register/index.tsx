@@ -24,12 +24,9 @@ const Register: React.FC = () => {
       }
 
       // 注册
-      const id = await register({
-        ...values,
-        type,
-      });
+      const id = await register(values);
 
-      if (id > 0) {
+      if (id) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
 
@@ -41,10 +38,8 @@ const Register: React.FC = () => {
           query,
         });
         return;
-      } else {
-        throw new Error(`register error id = ${id}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
       message.error(defaultLoginFailureMessage);
     }
@@ -123,6 +118,20 @@ const Register: React.FC = () => {
                     min: 8,
                     type: 'string',
                     message: '长度不小于 8！',
+                  },
+                ]}
+              />
+              <ProFormText
+                name="planetCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined className={styles.prefixIcon}/>,
+                }}
+                placeholder="请输入编号"
+                rules={[
+                  {
+                    required: true,
+                    message: '编号是必填项！',
                   },
                 ]}
               />

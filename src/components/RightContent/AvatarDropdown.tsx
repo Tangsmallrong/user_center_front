@@ -22,6 +22,7 @@ const loginOut = async () => {
   const {redirect} = query;
   // Note: There may be security issues, please note
   if (window.location.pathname !== '/user/login' && !redirect) {
+    // 如果当前页面不是登录页面或没有其他要重定向的页面, 就返回登录页
     history.replace({
       pathname: '/user/login',
       search: stringify({

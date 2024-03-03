@@ -3,16 +3,17 @@
 
 declare namespace API {
   type CurrentUser = {
-    id:number;
-    username:string;
-    userAccount:string;
-    avatarUrl?:string;  // ?表示不是必填
-    gender:number;
-    phone:string;
-    email:string;
-    userStatus:number;
-    userRole:number;
-    createTime:Date;
+    id: number;
+    username: string;
+    userAccount: string;
+    avatarUrl?: string;  // ?表示不是必填
+    gender: number;
+    phone: string;
+    email: string;
+    userStatus: number;
+    userRole: number;
+    planetCode: string;
+    createTime: Date;
   };
 
   type LoginResult = {
@@ -43,6 +44,16 @@ declare namespace API {
     progress?: number;
   };
 
+  /**
+   * 对接后端的通用返回类
+   */
+  type BaseResponse<T> = {
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+  }
+
   type RuleList = {
     data?: RuleListItem[];
     /** 列表的内容总数 */
@@ -66,6 +77,7 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
+    planetCode?: string;
     type?: string;
   };
 

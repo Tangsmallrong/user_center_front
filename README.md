@@ -100,12 +100,46 @@ dev: {
   },
 ```
 
+## 5. 前端代码优化
 
+- 全局响应处理
+  - 不用在每个接口请求中都去写相同的逻辑 
+  - 参考请求封装工具的官方文档，如 umi-request（ https://github.com/umijs/umi-request#interceptor ）
 
+- 全局请求/响应拦截器
+  - 新建 plugins 文件夹，文件夹下新建 `globalRequest.ts`，编写请求和响应的拦截器
+  - 在 api.ts 引入我们自己写的 request 方法 `import request from '@/plugins/globalRequest';`
+  - 在请求拦截器里可以打下日志
 
+```ts
+/**
+ * 所有请求拦截器
+ */
+request.interceptors.request.use((url, options): any => {
+  console.log(`do request url = ${url}`);
+  return {
+    ...
+  };
+});
 
-
-
+/**
+ * 所有响应拦截器
+ */
+request.interceptors.response.use(async (response, options): Promise<any> => {
+    const res = await response.clone().json();
+    if (res.code === 0) {
+        return res.data;
+    }
+    // 如果是用户未登录的错误, 就直接重定向到登录页
+    if (res.code === 40100) {
+        message.error("请先登录！");
+        // ...
+    } else {
+        message.error(res.description);
+    }
+    return res.data;
+});
+```
 
 
 

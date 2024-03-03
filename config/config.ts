@@ -5,6 +5,25 @@ import proxy from './proxy';
 import routes from './routes';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
+
+  chainWebpack(config) {
+    // 检查是否已经有针对 .md 文件的规则
+    const rule = config.module.rules.get('markdown');
+    if (rule) {
+      // 如果规则存在，则清除现有的所有 loader
+      rule.uses.clear();
+    } else {
+      // 如果规则不存在，则新建一个规则
+      config.module.rule('markdown')
+        .test(/\.md$/);
+    }
+
+    // 为 .md 文件添加正确的 loader
+    config.module.rule('markdown')
+      .use('markdown-loader')
+      .loader(require.resolve('markdown-loader'));
+  },
+
   hash: true,
   antd: {},
   dva: {
